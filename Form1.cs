@@ -55,14 +55,14 @@ namespace TextProcessor
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             if(folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                searchStringInput.Text = folderBrowserDialog.SelectedPath;
+                folderPathInput.Text = folderBrowserDialog.SelectedPath;
             }
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
             string searchInput = searchStringInput.Text;
-            bool isPathValid = CheckFolders(searchStringInput.Text);
+            bool isPathValid = CheckFolders(folderPathInput.Text);
             if (!isPathValid)
             {
                 MessageBox.Show("Invalid folder path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -76,12 +76,6 @@ namespace TextProcessor
                 ScanFiles(searchInput);
             }
         }
-
-        private void ScanFiles(string searchInput)
-        {
-            throw new NotImplementedException();
-        }
-
         private bool CheckFolders(string folderPath)
         {
             filePathList = new List<string>();
@@ -98,6 +92,41 @@ namespace TextProcessor
                     filePathList.Add(path.FullName);
                 }
                 return true;
+            }
+        }
+
+        private void ScanFiles(string searchInput)
+        {
+            foreach (var path in filePathList)
+            {
+                string readLine;
+                counter = 0;
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    while ((readLine = sr.ReadLine()) != null)
+                    {
+                        string[] words = readLine.Split(new char[] { '.', '?', '!', ' ', ';', ':', ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (caseSensitiveBox.Checked)
+                        {
+                            counter += words.Count(w => w == searchInput);
+                        }
+                        else counter += words.Count(w => w.ToLowerInvariant() == searchInput.ToLowerInvariant());
+                    }
+                }
+
+                if (counter == 0)
+                {
+                    MessageBox.Show("No files match your criteria", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    stringLabel.Text = "\"" + searchInput + "\"";
+                    ListViewItem listViewItem = new ListViewItem(path);
+                    listViewItem.SubItems.Add(counter.ToString());
+                    listViewDisplay.Items.Add(listViewItem);
+
+                }
+
             }
         }
 
