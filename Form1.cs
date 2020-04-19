@@ -62,6 +62,7 @@ namespace TextProcessor
 
         private void searchButton_Click(object sender, EventArgs e)
         {
+            listViewDisplay.Items.Clear();
             string searchInput = searchStringInput.Text;
             bool isPathValid = CheckFolders(folderPathInput.Text);
             if (!isPathValid)
@@ -134,7 +135,18 @@ namespace TextProcessor
 
         private void viewButton_Click(object sender, EventArgs e)
         {
-
+            if (listViewDisplay.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a file to display", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                string filepath = listViewDisplay.SelectedItems[0].Text;
+                FormView formView = new FormView();
+                formView.richTextBox1.Text = File.ReadAllText(filepath);
+                formView.pathLabel2.Text = filepath;
+                formView.Show();
+            }
         }
     }
 }
