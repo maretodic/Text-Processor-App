@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace TextProcessor
 
         private void ListViewDisplay_DoubleClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Process.Start("notepad.exe", listViewDisplay.SelectedItems[0].Text);
         }
 
         private void folderSearchButton_Click(object sender, EventArgs e)
