@@ -32,7 +32,7 @@
             this.folderSearchButton = new System.Windows.Forms.Button();
             this.searchButton = new System.Windows.Forms.Button();
             this.extensionCombo = new System.Windows.Forms.ComboBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewDisplay = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
             this.stringLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,6 +41,9 @@
             this.viewButton = new System.Windows.Forms.Button();
             this.searchStringInput = new System.Windows.Forms.TextBox();
             this.folderPathInput = new System.Windows.Forms.TextBox();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // caseSensitiveBox
@@ -49,7 +52,7 @@
             this.caseSensitiveBox.Location = new System.Drawing.Point(368, 102);
             this.caseSensitiveBox.Name = "caseSensitiveBox";
             this.caseSensitiveBox.Size = new System.Drawing.Size(94, 17);
-            this.caseSensitiveBox.TabIndex = 0;
+            this.caseSensitiveBox.TabIndex = 3;
             this.caseSensitiveBox.Text = "Case sensitive";
             this.caseSensitiveBox.UseVisualStyleBackColor = true;
             // 
@@ -61,15 +64,17 @@
             this.folderSearchButton.TabIndex = 1;
             this.folderSearchButton.Text = "Select a folder";
             this.folderSearchButton.UseVisualStyleBackColor = true;
+            this.folderSearchButton.Click += new System.EventHandler(this.folderSearchButton_Click);
             // 
             // searchButton
             // 
             this.searchButton.Location = new System.Drawing.Point(615, 134);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(115, 32);
-            this.searchButton.TabIndex = 2;
+            this.searchButton.TabIndex = 5;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // extensionCombo
             // 
@@ -77,16 +82,20 @@
             this.extensionCombo.Location = new System.Drawing.Point(303, 99);
             this.extensionCombo.Name = "extensionCombo";
             this.extensionCombo.Size = new System.Drawing.Size(59, 21);
-            this.extensionCombo.TabIndex = 3;
+            this.extensionCombo.TabIndex = 2;
             // 
-            // listView1
+            // listViewDisplay
             // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(78, 192);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(652, 193);
-            this.listView1.TabIndex = 4;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listViewDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listViewDisplay.HideSelection = false;
+            this.listViewDisplay.Location = new System.Drawing.Point(78, 192);
+            this.listViewDisplay.Name = "listViewDisplay";
+            this.listViewDisplay.Size = new System.Drawing.Size(652, 193);
+            this.listViewDisplay.TabIndex = 4;
+            this.listViewDisplay.UseCompatibleStateImageBehavior = false;
+            this.listViewDisplay.View = System.Windows.Forms.View.Details;
             // 
             // label1
             // 
@@ -143,20 +152,32 @@
             this.viewButton.TabIndex = 10;
             this.viewButton.Text = "View";
             this.viewButton.UseVisualStyleBackColor = true;
+            this.viewButton.Click += new System.EventHandler(this.viewButton_Click);
             // 
             // searchStringInput
             // 
             this.searchStringInput.Location = new System.Drawing.Point(580, 97);
             this.searchStringInput.Name = "searchStringInput";
             this.searchStringInput.Size = new System.Drawing.Size(150, 20);
-            this.searchStringInput.TabIndex = 11;
+            this.searchStringInput.TabIndex = 4;
             // 
             // folderPathInput
             // 
             this.folderPathInput.Location = new System.Drawing.Point(79, 99);
             this.folderPathInput.Name = "folderPathInput";
             this.folderPathInput.Size = new System.Drawing.Size(218, 20);
-            this.folderPathInput.TabIndex = 12;
+            this.folderPathInput.TabIndex = 0;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "File Path";
+            this.columnHeader1.Width = 459;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Number of repetition";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 186;
             // 
             // Form1
             // 
@@ -171,7 +192,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.stringLabel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.listViewDisplay);
             this.Controls.Add(this.extensionCombo);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.folderSearchButton);
@@ -189,7 +210,7 @@
         private System.Windows.Forms.Button folderSearchButton;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.ComboBox extensionCombo;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewDisplay;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label stringLabel;
         private System.Windows.Forms.Label label3;
@@ -198,6 +219,9 @@
         private System.Windows.Forms.Button viewButton;
         private System.Windows.Forms.TextBox searchStringInput;
         private System.Windows.Forms.TextBox folderPathInput;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
 

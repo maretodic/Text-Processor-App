@@ -15,6 +15,50 @@ namespace TextProcessor
         public Form1()
         {
             InitializeComponent();
+            listViewDisplay.DoubleClick += new EventHandler(ListViewDisplay_DoubleClick);
+            listViewDisplay.KeyDown += ListViewDisplay_KeyDown;
+            searchStringInput.KeyDown += SearchStringInput_KeyDown;
+
+            extensionCombo.DropDownStyle = ComboBoxStyle.DropDownList;
+            extensionCombo.Items.Add("txt");
+            extensionCombo.Items.Add("csv");
+            extensionCombo.SelectedItem = "txt";
+        }
+
+        private void SearchStringInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                viewButton_Click(this, new EventArgs());
+            }
+        }
+
+        private void ListViewDisplay_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                searchButton_Click(this, new EventArgs());
+            }
+        }
+
+        private void ListViewDisplay_DoubleClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void folderSearchButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void viewButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
