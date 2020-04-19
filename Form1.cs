@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,12 +13,15 @@ namespace TextProcessor
 {
     public partial class Form1 : Form
     {
+        List<string> filePathList;
+        string searchString;
+        int counter;
         public Form1()
         {
             InitializeComponent();
             listViewDisplay.DoubleClick += new EventHandler(ListViewDisplay_DoubleClick);
             listViewDisplay.KeyDown += ListViewDisplay_KeyDown;
-            searchButton.KeyDown += SearchButton_KeyDown;
+            searchStringInput.KeyDown += SearchStringInput_KeyDown;
 
             extensionCombo.DropDownStyle = ComboBoxStyle.DropDownList;
             extensionCombo.Items.Add("txt");
@@ -25,14 +29,20 @@ namespace TextProcessor
             extensionCombo.SelectedItem = "txt";
         }
 
-        private void SearchButton_KeyDown(object sender, KeyEventArgs e)
+        private void SearchStringInput_KeyDown(object sender, KeyEventArgs e)
         {
-            throw new NotImplementedException();
+            if(e.KeyCode == Keys.Enter)
+            {
+                searchButton_Click(this, new EventArgs());
+            }
         }
 
         private void ListViewDisplay_KeyDown(object sender, KeyEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                viewButton_Click(this, new EventArgs());
+            }
         }
 
         private void ListViewDisplay_DoubleClick(object sender, EventArgs e)
@@ -42,12 +52,35 @@ namespace TextProcessor
 
         private void folderSearchButton_Click(object sender, EventArgs e)
         {
-
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            if(folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                searchStringInput.Text = folderBrowserDialog.SelectedPath;
+            }
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
+            bool isPathValid = CheckFolders(searchStringInput.Text);
+        }
 
+        private bool CheckFolders(string folderPath)
+        {
+            filePathList = new List<string>();
+            DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
+            if (!directoryInfo.Exists)
+            {
+                return false;
+            }
+            else
+            {
+                string fileExtension = extensionCombo.SelectedItem.ToString();
+                foreach (var path in directoryInfo.EnumerateFiles(fileExtension, SearchOption.AllDirectories))
+                {
+                    filePathList.Add(path.FullName);
+                }
+                return true;
+            }
         }
 
         private void viewButton_Click(object sender, EventArgs e)
