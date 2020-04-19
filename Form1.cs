@@ -74,7 +74,7 @@ namespace TextProcessor
             }
             else
             {
-                string fileExtension = extensionCombo.SelectedItem.ToString();
+                string fileExtension = "*." + extensionCombo.SelectedItem.ToString();
                 foreach (var path in directoryInfo.EnumerateFiles(fileExtension, SearchOption.AllDirectories))
                 {
                     filePathList.Add(path.FullName);
