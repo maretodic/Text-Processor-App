@@ -121,6 +121,7 @@ namespace TextProcessor
                 else
                 {
                     stringLabel.Text = "\"" + searchInput + "\"";
+                    stringLabel.Visible = true;
                     ListViewItem listViewItem = new ListViewItem(path);
                     listViewItem.SubItems.Add(counter.ToString());
                     listViewDisplay.Items.Add(listViewItem);
