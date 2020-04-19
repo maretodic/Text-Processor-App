@@ -61,7 +61,25 @@ namespace TextProcessor
 
         private void searchButton_Click(object sender, EventArgs e)
         {
+            string searchInput = searchStringInput.Text;
             bool isPathValid = CheckFolders(searchStringInput.Text);
+            if (!isPathValid)
+            {
+                MessageBox.Show("Invalid folder path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (String.IsNullOrWhiteSpace(searchInput))
+            {
+                MessageBox.Show("Please enter search string", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                ScanFiles(searchInput);
+            }
+        }
+
+        private void ScanFiles(string searchInput)
+        {
+            throw new NotImplementedException();
         }
 
         private bool CheckFolders(string folderPath)
