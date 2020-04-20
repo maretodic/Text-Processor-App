@@ -54,7 +54,7 @@ namespace TextProcessor
         private void folderSearchButton_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-            if(folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 folderPathInput.Text = folderBrowserDialog.SelectedPath;
             }
@@ -63,19 +63,19 @@ namespace TextProcessor
         private void searchButton_Click(object sender, EventArgs e)
         {
             listViewDisplay.Items.Clear();
-            string searchInput = searchStringInput.Text;
+            searchString = searchStringInput.Text;
             bool isPathValid = CheckFolders(folderPathInput.Text);
             if (!isPathValid)
             {
                 MessageBox.Show("Invalid folder path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (String.IsNullOrWhiteSpace(searchInput))
+            else if (String.IsNullOrWhiteSpace(searchString))
             {
                 MessageBox.Show("Please enter search string", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                ScanFiles(searchInput);
+                ScanFiles(searchString);
             }
         }
         private bool CheckFolders(string folderPath)
